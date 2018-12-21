@@ -1,0 +1,47 @@
+//前i道题对j道（1<=j<=i）的概率=前i-1题对j-1题 第i题对的概率+前i-1题对j题 第i题不对的概率
+#include<iostream>
+#include<set>
+using namespace std;
+const int max = 105;
+double p[max];
+double dp[max][max];
+int main()
+{
+	int n;
+	double temp = 0;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> temp;
+		p[i] = double(temp / 100);
+	}
+	dp[0][0] = 1;
+
+	for (int i = 1; i <= n; i++)
+	{
+		dp[i][0] = dp[i - 1][0] * (1 - p[i-1]);
+		for (int j = 1; j <= i; j++)
+		{
+			dp[i][j] = dp[i-1][j - 1] * p[i-1] + dp[i-1][j] * (1 - p[i-1]);
+		}
+
+	}
+	int right = 0;
+	double temp1 = n*0.6;
+	if (temp1-(int)temp1!=0)
+	{
+		 right = (int)temp1+1;
+	}
+	else
+	{
+		 right = (int)temp1;
+	}
+	double ans = 0;
+	for (int i = right; i <= n; i++)
+	{
+		ans += dp[n][i];
+	}
+	cout << ans;
+	system("pause");
+	return 0;
+}

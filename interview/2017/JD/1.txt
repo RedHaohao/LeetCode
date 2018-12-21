@@ -1,0 +1,36 @@
+//使用calsum计算出和 再将各进制相加 最后用辗转相除法求出最大公约数
+#include<iostream>
+using namespace std;
+int calSum(int n, int a)
+{
+	int sum = 0;
+	while (n)
+	{
+		sum  += n%a;
+		n = n / a;
+	}
+	return sum;
+}
+int gcd(int a,int b)
+{
+	int temp = a;
+	while (a&b != 0)
+	{
+		a = b;
+		b = temp %b;
+		temp = a;
+	}
+	return b; 
+}
+int main()
+{
+	int n = 5;
+	int sum=0;
+	for (int i = 2; i < n; i++)
+	{
+		sum += calSum(n, i);
+	}
+	cout << sum << "/" << n - 2;
+	system("pause");
+	return 0;
+}
